@@ -3,19 +3,54 @@ let flippedCards = [];
 let lockBoard = false;
 let matchedCount = 0;
 
-function shuffleCards() {
-    const values = Array.from(cards).map(card => card.querySelector('.backside').textContent);
+const carImages = [
+    'theames/CAR/car1.jpg',
+    'theames/CAR/car2.jpg',
+    'theames/CAR/car3.jpg',
+    'theames/CAR/car4.jpg',
+    'theames/CAR/car5.jpg',
+    'theames/CAR/car6.jpg',
+    'theames/CAR/car7.jpg',
+];
 
-    for (let i = values.length - 1; i > 0; i--) {
+function shuffleCards() {
+   
+    let deck = [...carImages, ...carImages];
+
+    if (deck.length !== cards.length) {
+        console.warn(
+            `Card count (${cards.length}) (${deck.length}). ` +
+            ` ${carImages.length} = ${deck.length} .card`
+        );
+    }
+
+    // Fisher-Yates shuffle
+    for (let i = deck.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
-        [values[i], values[j]] = [values[j], values[i]];
+        [ deck[i], deck[j]] = [ deck[j], deck[i]];
     }
 
     cards.forEach((card, index) => {
-        card.querySelector('.backside').textContent = values[index];
+        const image = deck[index];
+
+        card.dataset.value = image;
+
+        const backside= card.querySelector(' .backside');
+        if (backside){
+            const img =backside.querySelector('img');
+            if (img) {
+              
+                img.src= image;
+            } else {
+              
+                backside.style.backgroundImage = ` url('${image}')`;
+            }
+        } else {
+         
+            card.style.backgroundImage = `url('${image}')`;
+        }
     });
 }
-
 
 shuffleCards();
 
@@ -24,7 +59,7 @@ cards.forEach(card => {
 });
 
 function flipCard(card) {
-    if(lockBoard) return;
+    if (lockBoard) return;
     if (card.classList.contains('flipped')) return;
     if (card.classList.contains('matched')) return;
 
@@ -37,28 +72,27 @@ function flipCard(card) {
     }
 }
 
-
 function checkMatch() {
     const [card1, card2] = flippedCards;
-    const value1 = card1.querySelector('.backside').textContent;
-    const value2 = card2.querySelector('.backside').textContent;
+    const value1 = card1.dataset.value;
+    const value2 = card2.dataset.value;
 
     if (value1 === value2) {
-       card1.classList.add('matched');
-       card2.classList.add('matched');
-       flippedCards = [];
-       lockBoard = false;
-       matchedCount += 2;
-
-     if (matchedCount === cards.length) {
-        setTimeout(() => alert('Congratulations! You matched all the cards!'), 500);
-    }
-}else {
-    setTimeout(() => {
-        card1.classList.remove('flipped');
-        card2.classList.remove('flipped');
+        card1.classList.add('matched');
+        card2.classList.add('matched');
         flippedCards = [];
         lockBoard = false;
-    }, 1000);       
-}   
-}        
+        matchedCount += 2;
+
+        if (matchedCount === cards.length) {
+            setTimeout(() => alert('Congratulations! You matched all the cards!'), 500);
+        }
+    } else {
+        setTimeout(() => {
+            card1.classList.remove('flipped');
+            card2.classList.remove('flipped');
+            flippedCards = [];
+            lockBoard = false;
+        }, 1000);
+    }
+}
