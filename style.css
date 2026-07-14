@@ -4,6 +4,9 @@
 .top-heading{
     height: 100px;
     background-color: blue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .row{
     display:flex;
@@ -81,4 +84,8 @@
     background-color: pink;
     background-size: cover;
     transform: rotateY(180deg);
+}
+#theme-select{
+    padding: 10px;
+    font-size: 20px;
 }
