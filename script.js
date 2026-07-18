@@ -71,6 +71,17 @@ function shuffleCards() {
             card.style.backgroundImage = `url('${image}')`;
         }
     });
+    showHint();
+}
+ 
+function showHint(duration = 1500){
+    lockBoard = true;
+    cards.forEach(card => card.classList.add(`flipped`));
+
+    setTimeout(() => {
+        cards.forEach(card => card.classList.remove(`flipped`));
+        lockBoard = false;
+    }, duration);
 }
 
 shuffleCards();
@@ -83,6 +94,13 @@ timerSelect.addEventListener('change', () => {
     customTimeInput.style.display = timerSelect.value === 'custom' ? 'inline-block' : 'none';
 });
 
+// reset btn
+document.getElementById('reset-Btn').addEventListener('click', () => {
+    clearInterval(timerInterval);
+    timerDisplay.textContent = 'Time: -- ';
+    shuffleCards();
+});
+// timer
 document.getElementById('start-timer-btn').addEventListener('click', () => {
     let seconds = timerSelect.value === 'custom'
     ?parseInt(customTimeInput.value,10)
@@ -156,3 +174,4 @@ function checkMatch() {
         }, 1000);
     }
 }
+
