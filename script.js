@@ -23,6 +23,15 @@ const carImages = [
     'themes/CAR/car6.jpg',
     'themes/CAR/car7.jpg',
 ];
+const flowerImages = [
+    'themes/FLOWERS/flower1.jpg',
+    'themes/FLOWERS/flower2.jpg',
+    'themes/FLOWERS/flower3.jpg',
+    'themes/FLOWERS/flower4.jpg',
+    'themes/FLOWERS/flower5.jpg',
+    'themes/FLOWERS/flower6.jpg',
+    'themes/FLOWERS/flower7.jpg',
+];
 let deck = [];
 
 function setTheme() {
@@ -31,6 +40,8 @@ function setTheme() {
         deck = [...instrumentImages, ...instrumentImages];
     } else if (theme === 'cars') {
         deck=  [...carImages, ...carImages];
+    } else if (theme === 'flowers') {
+        deck = [...flowerImages, ...flowerImages];
     }
 }
 
