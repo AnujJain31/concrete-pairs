@@ -89,3 +89,15 @@
     padding: 10px;
     font-size: 20px;
 }
+
+#timer-select,#custom-time,#start-timer-btn{
+    padding: 10px;
+    font-size: 20px;
+    margin-left: 10px;
+}
+
+#timer-display{
+    font-size: 20px;
+    margin-left: 15px;
+    color: white;
+}

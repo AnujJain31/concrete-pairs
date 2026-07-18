@@ -3,6 +3,8 @@ const cards = document.querySelectorAll('.card');
 let flippedCards = [];
 let lockBoard = false;
 let matchedCount = 0;
+let timerInterval = null;
+let timeLeft = 0;
 const instrumentImages = [
     'themes/INSTRUMENT/instrument1.jpg',
     'themes/INSTRUMENT/instrument2.jpg',
@@ -73,6 +75,43 @@ function shuffleCards() {
 
 shuffleCards();
 
+const timerSelect = document.getElementById('time-select');
+const customTimeInput = document.getElementById('custom-time');
+const timerDisplay = document.querySelector('.timer-display');
+
+timerSelect.addEventListener('change', () => {
+    customTimeInput.style.display = timerSelect.value === 'custom' ? 'inline-block' : 'none';
+});
+
+document.getElementById('start-timer-btn').addEventListener('click', () => {
+    let seconds = timerSelect.value === 'custom'
+    ?parselnt(customTimeInput.value,10)
+    :parselnt(timerSelect.value,10);
+
+    if(!seconds || seconds <= 0 ) return;
+
+    startTimer(seconds);
+    });
+
+    function startTimer(seconds){
+        clearInterval(timerInterval);
+        timeLeft = seconds;
+        timerDisplay.textContent = 'time:${timeLeft}'
+        lockBoard = false;
+
+        timerInterval = setInterval(() => {
+            timeLeft--;
+            timerDisplay.textContent = 'time${timeLeft}';
+
+            if(timeLeft <= 0){
+                clearInterval(timerInterval);
+                lockBoard = true;
+                alert("time's up!");
+                shuffleCards()
+            }
+        },1000);
+    }
+    
 document.getElementById('theme-select').addEventListener('change', shuffleCards);
 
 cards.forEach(card => {

@@ -8,6 +8,15 @@
 </head>
 <body>
     <div class="top-heading">
+        <select  id="time-select">
+            <option value="10"> 10 seconds</option>
+            <option value="30"> 30 seconds</option>
+            <option value="60"> 1 minute</option>
+            <option value="custom">Custom</option>
+        </select>
+        <input type="number" id="custom-time" placeholder="Enter seconds" style="display:none;" >
+        <button id="start-timer-btn">START TIMER</button>
+        <div class="timer-display">Time:-- </div>
         <select id="theme-select">
             <option value="instruments">instruments</option>
             <option value="cars">Cars</option>
