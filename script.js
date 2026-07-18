@@ -116,8 +116,18 @@ timerSelect.addEventListener('change', () => {
 // reset btn
 document.getElementById('reset-Btn').addEventListener('click', () => {
     clearInterval(timerInterval);
-    timerDisplay.textContent = 'Time: -- ';
-    shuffleCards();
+    
+    let seconds = timerSelect.value === 'custom'
+    ?parseInt(customTimeInput.value,10)
+    :parseInt(timerSelect.value,10);
+
+    shuffleCards()
+
+    if (seconds && seconds > 0){
+        startTimer(seconds);
+    }else{
+        timerDisplay.textContent = 'Time : --';
+    }
 });
 // timer
 document.getElementById('start-timer-btn').addEventListener('click', () => {
