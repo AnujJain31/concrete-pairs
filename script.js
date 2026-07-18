@@ -32,6 +32,14 @@ const flowerImages = [
     'themes/FLOWERS/flower6.jpg',
     'themes/FLOWERS/flower7.jpg',
 ];
+
+function preloadImages(urls){
+    urls.forEach(url =>{
+        const img = new Image();
+        img.src = url;
+    });
+}
+
 let deck = [];
 
 function setTheme() {
@@ -94,7 +102,7 @@ function showHint(duration = 1500){
         lockBoard = false;
     }, duration);
 }
-
+preloadImages([...instrumentImages,...carImages,...flowerImages]);
 shuffleCards();
 
 const timerSelect = document.getElementById('time-select');
