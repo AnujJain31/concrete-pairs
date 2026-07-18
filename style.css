@@ -96,8 +96,11 @@
     margin-left: 10px;
 }
 
-#timer-display{
+.timer-display{
     font-size: 20px;
     margin-left: 15px;
     color: white;
+}
+.timer{
+    padding-right: 40px;
 }

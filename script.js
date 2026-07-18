@@ -85,23 +85,23 @@ timerSelect.addEventListener('change', () => {
 
 document.getElementById('start-timer-btn').addEventListener('click', () => {
     let seconds = timerSelect.value === 'custom'
-    ?parselnt(customTimeInput.value,10)
-    :parselnt(timerSelect.value,10);
+    ?parseInt(customTimeInput.value,10)
+    :parseInt(timerSelect.value,10);
 
     if(!seconds || seconds <= 0 ) return;
-
+    shuffleCards()
     startTimer(seconds);
     });
 
     function startTimer(seconds){
         clearInterval(timerInterval);
         timeLeft = seconds;
-        timerDisplay.textContent = 'time:${timeLeft}'
+        timerDisplay.textContent = `Time: ${timeLeft}`;
         lockBoard = false;
 
         timerInterval = setInterval(() => {
             timeLeft--;
-            timerDisplay.textContent = 'time${timeLeft}';
+            timerDisplay.textContent = `Time: ${timeLeft}`;
 
             if(timeLeft <= 0){
                 clearInterval(timerInterval);
